@@ -4,6 +4,9 @@ FROM nginx:alpine
 # Crea un archivo index.html con el contenido "Hola Mundo"
 RUN echo "<h1>Hola Mundo</h1>" > /usr/share/nginx/html/index.html
 
+# Crea un directorio html-2
+RUN mkdir  /usr/share/nginx/html-2
+
 # Expone el puerto 8181
 #EXPOSE 8181
 

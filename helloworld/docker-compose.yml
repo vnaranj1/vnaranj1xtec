@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  helloworld-container:
+    image: helloworld:latest
+    container_name: helloworld-container
+    ports:
+      - "8383:80"
+    volumes:
+      - hwc:/usr/share/nginx/html
+      - ./html2:/usr/share/nginx/html-2
+
+  helloworld-container-2:
+    image: helloworld:latest
+    container_name: helloworld-container-2
+    ports:
+      - "8384:80"
+    volumes:
+      - hwc:/usr/share/nginx/html
+      - ./html2:/usr/share/nginx/html-2
+
+volumes:
+  hwc:
