@@ -1,12 +1,12 @@
 # Docker M8
+Este es un readme del proyecto docker 8
 ##
 Introducción a Docker
 https://dev.to/pwd9000/introduction-to-github-codespaces-building-your-first-dev-container-69l
-
 ## Enlace para generar un clon del repo
 https://github.com/ASIXGuine/m8/generate
 
-##Texto de bienvenida
+## Texto de bienvenida
 Welcome to Codespaces! You are on our default image. 
    - It includes runtimes and tools for Python, Node.js, Docker, and more. See the full list here: https://aka.ms/ghcs-default-image
    - Want to use a custom image instead? Learn more here: https://aka.ms/configure-codespace
@@ -18,7 +18,7 @@ Welcome to Codespaces! You are on our default image.
 ## Enlace para generar un clon del repo
 https://github.com/ASIXGuine/m8/generate
 
-## Paso a paso con docker
+# Paso a paso con docker
 
 ## Ejecutar el primer docker
    docker run -d --name apache-container -p 8181:80 httpd:latest
@@ -64,7 +64,7 @@ https://github.com/ASIXGuine/m8/generate
    ### Diferencia entre volumes y bind mount
    Volumes los gestiona Docker.  No hay acceso a los archivos del volumen porque estamos en un docker-indocker, y no tenemos usuario con permisos para acceder a los archivos de los volúmenes
    
-   Los bind mount son monstajes de directorios más parecidos a los que se hacen en el sistema operativo.
+   Los bind mount son monstajes de directorios más parecidos a los que se hacen en el sistema operativo. El mount lo podemos hacer a una carpeta del proyecto, y tenemos control en el repositorio.
    ### Opción 1: enlazar un volumen al vuelo ()
 
       - probar a lanzar un contenedor sin volumen, crear un archivo en la carpeta /usr/share/nginx/html del contenedor,y comprobar que funciona accediendo a ese archivo a través del servidor web. Matar el contendor y prunarlo.  Crear un nuevo conenedor y montarlo don el mismo volumen.  Hacer la misma comprobación (ojo con la caché del navegador).  Cuál es el. resultado?
@@ -72,6 +72,9 @@ https://github.com/ASIXGuine/m8/generate
       - Comandos: docker volume ls, docker volume inspect [nombre o id del volumen], docker exec -it [nombre/id] sh (o verlo en el plugin de docker)
       - Ejecutar con volumen: docker run -d --name helloworld-container -p 8383:80 -v hwc:/usr/share/nginx/html helloworld:latest
    ### Opción 2: montar un directorio al vuelo
+      docker run -d -name helloworld-container -p 8383:80\
+      --mount type=bind,source="$(pwd)"/html,target=/usr/share/nginx/html  \
+      helloworld:latest
 
    ## Docker compose
       Como se puede ver, la instanciación de contenedores mediante la línea de comandos se empieza a complicar según los comandos que utilicemos, y a medida que queremos añadirle más caracteríaticas a la imagen.
@@ -81,11 +84,30 @@ https://github.com/ASIXGuine/m8/generate
       Ahora montaremos un contenedor con las mismas características que el contenedor con el que hemos estado probando, pero lo haremos configurando un archivo docker-compose.yml
 
    ### Añadir un segundo container al mismo archivo de docker compose
-   ### Extra: utilizar el plugin de Visual Studio code para manejar los contenedores
 
-## Configurar un docker con un servidor de streaming de video
-   ### Crear el dockerfile
+   ### Más: utilizar el plugin de Visual Studio code para manejar los contenedores
 
+   # Configuración de un serviciode streaming de audio
+   **RTMP** y RTSP (Real Time Messaging/Stream Protocol)
+   También HLS
+
+   ## Configurar un docker con un servidor de streaming de video
+   Fijarse que el puerto 1935 es para el protocolo RTMP
+   
+   ### Crear el dockerfile con Owncast
+   docker run -it --rm --name owncast -p 8084:8080 -p 1935:1935 owncast/owncast:latest
+
+   ### Con Ngnx
+   https://hub.docker.com/r/tiangolo/nginx-rtmp/
+
+   https://www.adictosaltrabajo.com/2017/06/21/crea-tu-servidor-rtmp-para-streaming-con-nginx/
+
+   https://www.mediastre.am/blog/rtmp-vs-http-live-streaming-hls-cuando-usar-cada-uno
+
+   Este enlace es interesante por el dibujito
+   https://www.ionos.es/digitalguide/paginas-web/desarrollo-web/rtmp/
+   
+   http://es.wodwinvc.com/info/do-you-konw-streaming-protocols-rtmp-and-rtsp-59275697.html
 
 
 
